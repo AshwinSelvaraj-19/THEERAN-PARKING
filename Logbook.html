@@ -288,7 +288,7 @@
     const ownerName = document.getElementById('ownerName').value.trim();
     const ownerMobile = document.getElementById('ownerMobile').value.trim();
 
-    if (!vehicleNumber || !vehicleType || vehicleDistrict || vehicleState || vehicleSeries || vehicleDigits) {
+    if (!vehicleNumber || !vehicleType || !vehicleDistrict || !vehicleState || !vehicleSeries || !vehicleDigits) {
       alert('Vehicle number and type are required.');
       return;
     }
