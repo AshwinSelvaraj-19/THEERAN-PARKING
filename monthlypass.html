@@ -188,6 +188,8 @@
           <thead class="bg-gradient-to-r from-blue-50 to-indigo-50">
             <tr>
               <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Name</th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Vehicle No</th>
+              <th class="px-6 py-4 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider">Mobile</th>
               <th class="px-3 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Jan</th>
               <th class="px-3 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Feb</th>
               <th class="px-3 py-4 text-center text-xs font-semibold text-gray-700 uppercase tracking-wider">Mar</th>
@@ -231,67 +233,86 @@
     <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg slide-in">
       <div class="px-6 py-4 border-b border-gray-200">
         <h2 id="modalTitle" class="text-xl font-semibold text-gray-900">Add Monthly Pass</h2>
-        <p class="text-sm text-gray-600 mt-1">Select the months for which this pass is valid</p>
+        <p class="text-sm text-gray-600 mt-1">Enter pass details and select valid months</p>
       </div>
       
       <div class="px-6 py-6">
-        <div class="mb-6">
-          <label for="nameInput" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
-          <input id="nameInput" type="text" placeholder="Enter full name" 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
-        </div>
-        
-        <div class="mb-6">
-          <label class="block text-sm font-medium text-gray-700 mb-3">Valid Months</label>
-          <div class="grid grid-cols-3 gap-3">
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="jan" class="custom-checkbox">
-              <span class="text-sm font-medium">January</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="feb" class="custom-checkbox">
-              <span class="text-sm font-medium">February</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="mar" class="custom-checkbox">
-              <span class="text-sm font-medium">March</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="apr" class="custom-checkbox">
-              <span class="text-sm font-medium">April</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="may" class="custom-checkbox">
-              <span class="text-sm font-medium">May</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="jun" class="custom-checkbox">
-              <span class="text-sm font-medium">June</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="jul" class="custom-checkbox">
-              <span class="text-sm font-medium">July</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="aug" class="custom-checkbox">
-              <span class="text-sm font-medium">August</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="sep" class="custom-checkbox">
-              <span class="text-sm font-medium">September</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="oct" class="custom-checkbox">
-              <span class="text-sm font-medium">October</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="nov" class="custom-checkbox">
-              <span class="text-sm font-medium">November</span>
-            </label>
-            <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
-              <input type="checkbox" data-month="dec" class="custom-checkbox">
-              <span class="text-sm font-medium">December</span>
-            </label>
+        <div class="space-y-4">
+          <div>
+            <label for="nameInput" class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+            <input id="nameInput" type="text" placeholder="Enter full name" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+          </div>
+
+          <div>
+            <label for="vehicleInput" class="block text-sm font-medium text-gray-700 mb-2">Vehicle Number</label>
+            <input id="vehicleInput" type="text" placeholder="Enter vehicle number (e.g., TN01AB1234)" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              pattern="^[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}$"
+              title="Please enter a valid vehicle number (e.g., TN01AB1234)">
+          </div>
+
+          <div>
+            <label for="mobileInput" class="block text-sm font-medium text-gray-700 mb-2">Mobile Number</label>
+            <input id="mobileInput" type="tel" placeholder="Enter 10-digit mobile number" 
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              pattern="[0-9]{10}"
+              maxlength="10"
+              title="Please enter a valid 10-digit mobile number">
+          </div>
+          
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-3">Valid Months</label>
+            <div class="grid grid-cols-3 gap-3">
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="jan" class="custom-checkbox">
+                <span class="text-sm font-medium">January</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="feb" class="custom-checkbox">
+                <span class="text-sm font-medium">February</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="mar" class="custom-checkbox">
+                <span class="text-sm font-medium">March</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="apr" class="custom-checkbox">
+                <span class="text-sm font-medium">April</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="may" class="custom-checkbox">
+                <span class="text-sm font-medium">May</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="jun" class="custom-checkbox">
+                <span class="text-sm font-medium">June</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="jul" class="custom-checkbox">
+                <span class="text-sm font-medium">July</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="aug" class="custom-checkbox">
+                <span class="text-sm font-medium">August</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="sep" class="custom-checkbox">
+                <span class="text-sm font-medium">September</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="oct" class="custom-checkbox">
+                <span class="text-sm font-medium">October</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="nov" class="custom-checkbox">
+                <span class="text-sm font-medium">November</span>
+              </label>
+              <label class="flex items-center space-x-2 p-3 border border-gray-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors">
+                <input type="checkbox" data-month="dec" class="custom-checkbox">
+                <span class="text-sm font-medium">December</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -348,6 +369,8 @@
       addPassBtn: document.getElementById('addPassBtn'),
       passModal: document.getElementById('passModal'),
       nameInput: document.getElementById('nameInput'),
+      vehicleInput: document.getElementById('vehicleInput'),
+      mobileInput: document.getElementById('mobileInput'),
       saveModalBtn: document.getElementById('saveModalBtn'),
       cancelModalBtn: document.getElementById('cancelModalBtn'),
       modalTitle: document.getElementById('modalTitle'),
@@ -419,8 +442,9 @@
       editingId = editRow ? editRow.id : null;
       elements.modalTitle.textContent = editingId ? "Edit Monthly Pass" : "Add Monthly Pass";
       elements.nameInput.value = editRow?.name || "";
+      elements.vehicleInput.value = editRow?.vehiclenumber || "";
+      elements.mobileInput.value = editRow?.mobilenumber || "";
       
-      // Reset checkboxes
       document.querySelectorAll('#passModal input[type="checkbox"]').forEach(cb => {
         cb.checked = editRow ? (editRow[cb.dataset.month] || false) : false;
       });
@@ -433,13 +457,17 @@
       elements.passModal.classList.add('hidden');
       editingId = null;
       elements.nameInput.value = '';
+      elements.vehicleInput.value = '';
+      elements.mobileInput.value = '';
       document.querySelectorAll('#passModal input[type="checkbox"]').forEach(cb => {
         cb.checked = false;
       });
     }
 
     function formatDate(dateString) {
-      return new Date(dateString).toLocaleDateString('en-US', {
+      return new Date(dateString).toLocal
+
+eString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
@@ -447,8 +475,6 @@
     }
 
     function renderTable(data) {
-      console.log('Rendering table with data:', data);
-      
       if (data.length === 0) {
         elements.tableBody.innerHTML = '';
         elements.emptyState.classList.remove('hidden');
@@ -461,8 +487,6 @@
       data.forEach((row, index) => {
         const tr = document.createElement("tr");
         tr.className = "table-row transition-all duration-200";
-        
-        // Add staggered animation
         tr.style.animationDelay = `${index * 50}ms`;
         tr.classList.add('fade-in');
         
@@ -479,6 +503,8 @@
               </div>
             </div>
           </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${row.vehiclenumber || '—'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${row.mobilenumber || '—'}</td>
           ${months.map(month => `
             <td class="px-3 py-4 text-center">
               <input type="checkbox" ${row[month] ? "checked" : ""} disabled 
@@ -538,9 +564,24 @@
     // Event Handlers
     elements.saveModalBtn.onclick = async () => {
       const name = elements.nameInput.value.trim();
+      const vehicleNumber = elements.vehicleInput.value.trim();
+      const mobileNumber = elements.mobileInput.value.trim();
+
       if (!name) {
         showToast("Name is required", 'error');
         elements.nameInput.focus();
+        return;
+      }
+
+      if (!vehicleNumber.match(/^[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}$/)) {
+        showToast("Please enter a valid vehicle number", 'error');
+        elements.vehicleInput.focus();
+        return;
+      }
+
+      if (!mobileNumber.match(/^[0-9]{10}$/)) {
+        showToast("Please enter a valid 10-digit mobile number", 'error');
+        elements.mobileInput.focus();
         return;
       }
 
@@ -559,23 +600,29 @@
 
       setLoading(true);
       try {
+        const data = {
+          name,
+          vehiclenumber: vehicleNumber,
+          mobilenumber: mobileNumber,
+          ...monthData
+        };
+
         let result;
         if (editingId) {
           result = await supabase
             .from('monthly_pass')
-            .update({ name, ...monthData })
+            .update(data)
             .eq('id', editingId);
         } else {
           result = await supabase
             .from('monthly_pass')
-            .insert({ name, ...monthData });
+            .insert([data]);
         }
 
         if (result.error) throw result.error;
 
         showToast(editingId ? "Pass updated successfully" : "Pass created successfully");
         closeModal();
-        // Real-time will handle the update
       } catch (error) {
         console.error('Save error:', error);
         showToast("Failed to save pass", 'error');
