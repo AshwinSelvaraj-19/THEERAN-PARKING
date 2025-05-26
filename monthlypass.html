@@ -428,7 +428,7 @@
 
     // Password verification functions
     function verifyPassword(password) {
-      return password === 'adminpass123';
+      return password === 'a';
     }
 
     window.showPasswordModal = function(actionCallback, actionType) {
@@ -515,12 +515,144 @@
       }
     });
 
-    // Rest of the JavaScript code remains exactly the same
+    document.getElementById('cancelPasswordBtn').addEventListener('click', closePasswordModal);
+
+    document.getElementById('adminPassword').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('submitPasswordBtn').click();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !document.getElementById('passwordModal').classList.contains('hidden')) {
+        closePasswordModal();
+      }
+    });
+
+    document.getElementById('passwordModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('passwordModal')) {
+        closePasswordModal();
+      }
+    });
+
+    // DOM Elements
+    const elements = {
+      tableBody: document.getElementById('tableBody'),
+      toast: document.getElementById('toast'),
+      toastMessage: document.getElementById('toastMessage'),
+      toastIcon: document.getElementById('toastIcon'),
+      toastClose: document.getElementById('toastClose'),
+      searchInput: document.getElementById('searchInput'),
+      addPassBtn: document.getElementById('addPassBtn'),
+      passModal: document.getElementById('passModal'),
+      nameInput: document.getElementById('nameInput'),
+      vehicleInput: document.getElementById('vehicleInput'),
+      mobileInput: document.getElementById('mobileInput'),
+      saveModalBtn: document.getElementById('saveModalBtn'),
+      cancelModalBtn: document.getElementById('cancelModalBtn'),
+      modalTitle: document.getElementById('modalTitle'),
+      emptyState: document.getElementById('emptyState'),
+      loadingOverlay: document.getElementById('loadingOverlay'),
+      totalPasses: document.getElementById('totalPasses'),
+      activePasses: document.getElementById('activePasses')
+    };
+
+    // State
+    let editingId = null;
+    let allRows = [];
+    let isLoading = false;
+    let realtimeChannel = null;
+
+    // Utility Functions
+    const months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    function getCurrentMonth() {
+      return months[new Date().getMonth()];
+    }
+
+    function setLoading(loading) {
+      isLoading = loading;
+      if (loading) {
+        elements.saveModalBtn.classList.add('loading');
+        elements.loadingOverlay.classList.remove('hidden');
+      } else {
+        elements.saveModalBtn.classList.remove('loading');
+        elements.loadingOverlay.classList.add('hidden');
+      }
+    }
+
+    function showToast(message, type = 'success') {
+      const isError = type === 'error';
+      
+      elements.toastIcon.innerHTML = isError 
+        ? `<div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+             <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+               <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+             </svg>
+           </div>`
+        : `<div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+             <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+             </svg>
+           </div>`;
+
+      elements.toastMessage.textContent = message;
+      elements.toast.classList.remove('hidden');
+      
+      setTimeout(() => {
+        elements.toast.classList.add('hidden');
+      }, 5000);
+    }
+
+    function updateStats() {
+      const currentMonth = getCurrentMonth();
+      const totalCount = allRows.length;
+      const activeCount = allRows.filter(row => row[currentMonth]).length;
+      
+      elements.totalPasses.textContent = totalCount;
+      elements.activePasses.textContent = activeCount;
+    }
+
+    window.openModal = function(editRow = null) {
+      editingId = editRow ? editRow.id : null;
+      elements.modalTitle.textContent = editingId ? "Edit Monthly Pass" : "Add Monthly Pass";
+      elements.nameInput.value = editRow?.name || "";
+      elements.vehicleInput.value = editRow?.vehiclenumber || "";
+      elements.mobileInput.value = editRow?.mobilenumber || "";
+      
+      document.querySelectorAll('#passModal input[type="checkbox"]').forEach(cb => {
+        cb.checked = editRow ? (editRow[cb.dataset.month] || false) : false;
+      });
+      
+      elements.passModal.classList.remove('hidden');
+      elements.nameInput.focus();
+    }
+
+    function closeModal() {
+      elements.passModal.classList.add('hidden');
+      editingId = null;
+      elements.nameInput.value = '';
+      elements.vehicleInput.value = '';
+      elements.mobileInput.value = '';
+      document.querySelectorAll('#passModal input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+      });
+    }
+
+    function formatDate(dateString) {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
 
     window.editPass = function(id) {
       const row = allRows.find(r => r.id === id);
       if (row) {
-        showPasswordModal(() => openModal(row), 'Edit');
+        showPasswordModal(() => openModal(row));
       }
     };
 
@@ -535,22 +667,263 @@
               .eq('id', id);
 
             if (error) throw error;
+            showToast('Pass deleted successfully');
           } catch (error) {
             console.error('Delete error:', error);
-            throw error;
+            showToast('Failed to delete pass', 'error');
           } finally {
             setLoading(false);
           }
         }
-      }, 'Delete');
+      });
     };
 
-    // Add event listener for the Add New Pass button
-    document.getElementById('addPassBtn').addEventListener('click', () => {
-      showPasswordModal(() => openModal(), 'Create');
+    function renderTable(data) {
+      if (data.length === 0) {
+        elements.tableBody.innerHTML = '';
+        elements.emptyState.classList.remove('hidden');
+        return;
+      }
+
+      elements.emptyState.classList.add('hidden');
+      elements.tableBody.innerHTML = "";
+      
+      data.forEach((row, index) => {
+        const tr = document.createElement("tr");
+        tr.className = "table-row transition-all duration-200";
+        tr.style.animationDelay = `${index * 50}ms`;
+        tr.classList.add('fade-in');
+        
+        tr.innerHTML = `
+          <td class="px-6 py-4 whitespace-nowrap">
+            <div class="flex items-center">
+              <div class="flex-shrink-0 h-8 w-8">
+                <div class="h-8 w-8 rounded-full bg-gradient-to-r from-blue-400 to-indigo-500 flex items-center justify-center">
+                  <span class="text-sm font-medium text-white">${row.name.charAt(0).toUpperCase()}</span>
+                </div>
+              </div>
+              <div class="ml-4">
+                <div class="text-sm font-medium text-gray-900">${row.name}</div>
+              </div>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${row.vehiclenumber || '—'}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${row.mobilenumber || '—'}</td>
+          ${months.map(month => `
+            <td class="px-3 py-4 text-center">
+              <input type="checkbox" ${row[month] ? "checked" : ""} disabled 
+                class="custom-checkbox" 
+                title="${row[month] ? 'Active' : 'Inactive'} for ${monthNames[months.indexOf(month)]}">
+            </td>
+          `).join('')}
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+            ${formatDate(row.created_at)}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            <div class="flex items-center space-x-2">
+              <button onclick="editPass(${row.id})" 
+                class="text-blue-600 hover:text-blue-900 transition-colors px-3 py-1 rounded hover:bg-blue-50">
+                Edit
+              </button>
+              <button onclick="deletePass(${row.id})" 
+                class="text-red-600 hover:text-red-900 transition-colors px-3 py-1 rounded hover:bg-red-50">
+                Delete
+              </button>
+            </div>
+          </td>
+        `;
+        
+        elements.tableBody.appendChild(tr);
+      });
+      
+      updateStats();
+    }
+
+    // Event Handlers
+    elements.saveModalBtn.onclick = async () => {
+      const name = elements.nameInput.value.trim();
+      const vehicleNumber = elements.vehicleInput.value.trim();
+      const mobileNumber = elements.mobileInput.value.trim();
+
+      if (!name) {
+        showToast("Name is required", 'error');
+        elements.nameInput.focus();
+        return;
+      }
+
+      if (!vehicleNumber.match(/^[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}$/)) {
+        showToast("Please enter a valid vehicle number", 'error');
+        elements.vehicleInput.focus();
+        return;
+      }
+
+      if (!mobileNumber.match(/^[0-9]{10}$/)) {
+        showToast("Please enter a valid 10-digit mobile number", 'error');
+        elements.mobileInput.focus();
+        return;
+      }
+
+      const monthData = {};
+      let hasSelectedMonth = false;
+      
+      document.querySelectorAll('#passModal input[type="checkbox"]').forEach(cb => {
+        monthData[cb.dataset.month] = cb.checked;
+        if (cb.checked) hasSelectedMonth = true;
+      });
+
+      if (!hasSelectedMonth) {
+        showToast("Please select at least one month", 'error');
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const data = {
+          name,
+          vehiclenumber: vehicleNumber,
+          mobilenumber: mobileNumber,
+          ...monthData
+        };
+
+        let result;
+        if (editingId) {
+          result = await supabase
+            .from('monthly_pass')
+            .update(data)
+            .eq('id', editingId);
+        } else {
+          result = await supabase
+            .from('monthly_pass')
+            .insert([data]);
+        }
+
+        if (result.error) throw result.error;
+
+        showToast(editingId ? "Pass updated successfully" : "Pass created successfully");
+        closeModal();
+      } catch (error) {
+        console.error('Save error:', error);
+        showToast("Failed to save pass", 'error');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    elements.cancelModalBtn.onclick = closeModal;
+    elements.toastClose.onclick = () => elements.toast.classList.add('hidden');
+
+    // Close modal on backdrop click
+    elements.passModal.onclick = (e) => {
+      if (e.target === elements.passModal) {
+        closeModal();
+      }
+    };
+
+    // Search functionality
+    function applySearch() {
+      const value = elements.searchInput.value.toLowerCase();
+      const filteredRows = allRows.filter(r => 
+        r.name.toLowerCase().includes(value)
+      );
+      renderTable(filteredRows);
+    }
+
+    elements.searchInput.addEventListener('input', applySearch);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !elements.passModal.classList.contains('hidden')) {
+        closeModal();
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        elements.searchInput.focus();
+      }
     });
 
-    // Rest of the code remains exactly the same until the end
+    // Load data from Supabase
+    async function loadPasses() {
+      setLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from('monthly_pass')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) throw error;
+
+        console.log('Loaded passes from Supabase:', data);
+        allRows = data || [];
+        applySearch();
+      } catch (error) {
+        console.error('Load error:', error);
+        showToast("Failed to load passes", 'error');
+        allRows = [];
+        renderTable([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    // Setup real-time subscriptions
+    function setupRealTime() {
+      realtimeChannel = supabase
+        .channel('monthly_pass_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'monthly_pass'
+          },
+          (payload) => {
+            console.log('Real-time change detected:', payload);
+            
+            switch (payload.eventType) {
+              case 'INSERT':
+                allRows.unshift(payload.new);
+                showToast(`New pass created for ${payload.new.name}`);
+                break;
+              case 'UPDATE':
+                const updateIndex = allRows.findIndex(row => row.id === payload.new.id);
+                if (updateIndex !== -1) {
+                  allRows[updateIndex] = payload.new;
+                  showToast(`Pass updated for ${payload.new.name}`);
+                }
+                break;
+              case 'DELETE':
+                const deleteIndex = allRows.findIndex(row => row.id === payload.old.id);
+                if (deleteIndex !== -1) {
+                  allRows.splice(deleteIndex, 1);
+                  showToast(`Pass deleted for ${payload.old.name}`);
+                }
+                break;
+            }
+            
+            applySearch();
+          }
+        )
+        .subscribe();
+
+      console.log('Real-time subscription setup complete');
+    }
+
+    // Initialize app
+    async function initializeApp() {
+      await loadPasses();
+      setupRealTime();
+      console.log('Monthly Pass Management System initialized with real-time updates');
+    }
+
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+      if (realtimeChannel) {
+        supabase.removeChannel(realtimeChannel);
+      }
+    });
+
+    // Start the app
+    initializeApp();
   </script>
 </body>
 </html>
