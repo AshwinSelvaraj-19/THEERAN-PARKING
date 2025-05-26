@@ -89,34 +89,6 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-
-    /* Password modal animation */
-    .password-modal {
-      animation: modalSlideIn 0.3s ease-out;
-    }
-
-    @keyframes modalSlideIn {
-      from {
-        opacity: 0;
-        transform: translate(-50%, -60%);
-      }
-      to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-      }
-    }
-
-    /* Error shake animation */
-    .shake {
-      animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
-    }
-
-    @keyframes shake {
-      10%, 90% { transform: translate3d(-1px, 0, 0); }
-      20%, 80% { transform: translate3d(2px, 0, 0); }
-      30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
-      40%, 60% { transform: translate3d(4px, 0, 0); }
-    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -140,7 +112,7 @@
         
             <div class="flex items-center space-x-2 group relative">
               <div class="flex justify-end pb-3">
-                <button id="addPassBtn" onclick="showPasswordModal(() => openModal())"
+                <button id="addPassBtn"
                   class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 sm:px-6 sm:py-3 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center space-x-2">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -157,9 +129,15 @@
               </div>
             </div>
           </nav>
-        </div>
+        <button id="addPassBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center space-x-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          <span>Add New Pass</span>
+        </button>
       </div>
     </div>
+  
 
   <!-- Sidebar -->
   <aside class="w-full sm:w-64 min-h-screen fixed top-16 sm:top-20 left-0 bg-[#1A2E45] text-white p-4 sm:p-6 shadow-md z-40">
@@ -243,7 +221,7 @@
         </div>
         <h3 class="text-lg font-medium text-gray-900 mb-2">No passes found</h3>
         <p class="text-gray-500 mb-6">Get started by creating your first monthly pass.</p>
-        <button onclick="showPasswordModal(() => openModal())" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
+        <button onclick="document.getElementById('addPassBtn').click()" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors">
           Create First Pass
         </button>
       </div>
@@ -350,44 +328,6 @@
     </div>
   </div>
 
-  <!-- Password Verification Modal -->
-  <div id="passwordModal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center">
-    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 transform transition-all password-modal">
-      <div class="text-center mb-6">
-        <h3 class="text-xl font-semibold text-gray-900">Authentication Required</h3>
-        <p class="text-sm text-gray-600 mt-1">Please enter your password to continue</p>
-      </div>
-
-      <div class="space-y-4">
-        <div class="relative">
-          <input type="password" 
-                 id="adminPassword" 
-                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                 placeholder="Enter password"
-                 autocomplete="new-password">
-          <div id="passwordError" class="hidden absolute -bottom-6 left-0 text-sm text-red-500">
-            Invalid password. Please try again.
-          </div>
-        </div>
-
-        <div id="attemptWarning" class="hidden text-sm text-orange-500 bg-orange-50 p-3 rounded-lg">
-          Warning: Multiple failed attempts detected. Please try again in 30 seconds.
-        </div>
-
-        <div class="flex justify-end space-x-3 mt-6">
-          <button id="cancelPasswordBtn" 
-                  class="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-            Cancel
-          </button>
-          <button id="submitPasswordBtn" 
-                  class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-            Submit
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- Toast Notification -->
   <div id="toast" class="hidden fixed bottom-4 right-4 max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg z-50 slide-in">
     <div class="flex items-center p-4">
@@ -415,126 +355,8 @@
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
+    // Initialize Supabase
     const supabase = createClient('https://qprmenpbktfmlgrvmnms.supabase.co', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwcm1lbnBia3RmbWxncnZtbm1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDE3NTYsImV4cCI6MjA2MjQ3Nzc1Nn0.CA69E_h-tjA-cDp165Qa5ONc_PfTIzLqMDhaqQqEo7M");
-
-    // Password verification state
-    let passwordAttempts = 0;
-    const MAX_ATTEMPTS = 3;
-    const LOCKOUT_DURATION = 30000; // 30 seconds
-    let isLockedOut = false;
-    let lastAttemptTime = 0;
-    let pendingAction = null;
-    let currentActionType = null;
-
-    // Password verification functions
-    function verifyPassword(password) {
-      return password === 'a';
-    }
-
-    window.showPasswordModal = function(actionCallback, actionType) {
-      if (isLockedOut) {
-        const timeRemaining = Math.ceil((LOCKOUT_DURATION - (Date.now() - lastAttemptTime)) / 1000);
-        if (timeRemaining > 0) {
-          showToast(`Too many attempts. Please wait ${timeRemaining} seconds.`, 'error');
-          return;
-        }
-        isLockedOut = false;
-        passwordAttempts = 0;
-      }
-
-      const passwordModal = document.getElementById('passwordModal');
-      const passwordInput = document.getElementById('adminPassword');
-      const passwordError = document.getElementById('passwordError');
-      const attemptWarning = document.getElementById('attemptWarning');
-
-      passwordError.classList.add('hidden');
-      attemptWarning.classList.add('hidden');
-      passwordInput.value = '';
-      passwordInput.classList.remove('shake');
-      
-      pendingAction = actionCallback;
-      currentActionType = actionType;
-      passwordModal.classList.remove('hidden');
-      
-      setTimeout(() => passwordInput.focus(), 100);
-    }
-
-    function closePasswordModal() {
-      const passwordModal = document.getElementById('passwordModal');
-      passwordModal.classList.add('hidden');
-      pendingAction = null;
-      currentActionType = null;
-    }
-
-    document.getElementById('submitPasswordBtn').addEventListener('click', async () => {
-      const passwordInput = document.getElementById('adminPassword');
-      const passwordError = document.getElementById('passwordError');
-      const attemptWarning = document.getElementById('attemptWarning');
-      const password = passwordInput.value;
-
-      if (!password.trim()) {
-        passwordError.textContent = 'Password is required';
-        passwordError.classList.remove('hidden');
-        passwordInput.classList.add('shake');
-        setTimeout(() => passwordInput.classList.remove('shake'), 500);
-        return;
-      }
-
-      if (verifyPassword(password)) {
-        passwordAttempts = 0;
-        closePasswordModal();
-        if (pendingAction) {
-          try {
-            await pendingAction();
-            showToast(`${currentActionType} operation completed successfully`);
-          } catch (error) {
-            console.error(`${currentActionType} operation failed:`, error);
-            showToast(`Failed to ${currentActionType.toLowerCase()}. Please try again.`, 'error');
-          }
-        }
-      } else {
-        passwordAttempts++;
-        lastAttemptTime = Date.now();
-        
-        passwordError.textContent = 'Invalid password. Please try again.';
-        passwordError.classList.remove('hidden');
-        passwordInput.classList.add('shake');
-        passwordInput.value = '';
-        
-        setTimeout(() => passwordInput.classList.remove('shake'), 500);
-
-        
-
-        if (passwordAttempts >= MAX_ATTEMPTS) {
-          isLockedOut = true;
-          showToast(`Too many attempts. Please wait 30 seconds.`, 'error');
-          closePasswordModal();
-        } else if (passwordAttempts >= MAX_ATTEMPTS - 1) {
-          attemptWarning.classList.remove('hidden');
-        }
-      }
-    });
-
-    document.getElementById('cancelPasswordBtn').addEventListener('click', closePasswordModal);
-
-    document.getElementById('adminPassword').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        document.getElementById('submitPasswordBtn').click();
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !document.getElementById('passwordModal').classList.contains('hidden')) {
-        closePasswordModal();
-      }
-    });
-
-    document.getElementById('passwordModal').addEventListener('click', (e) => {
-      if (e.target === document.getElementById('passwordModal')) {
-        closePasswordModal();
-      }
-    });
 
     // DOM Elements
     const elements = {
@@ -586,6 +408,7 @@
     function showToast(message, type = 'success') {
       const isError = type === 'error';
       
+      // Set icon
       elements.toastIcon.innerHTML = isError 
         ? `<div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
              <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
@@ -615,7 +438,7 @@
       elements.activePasses.textContent = activeCount;
     }
 
-    window.openModal = function(editRow = null) {
+    function openModal(editRow = null) {
       editingId = editRow ? editRow.id : null;
       elements.modalTitle.textContent = editingId ? "Edit Monthly Pass" : "Add Monthly Pass";
       elements.nameInput.value = editRow?.name || "";
@@ -642,41 +465,14 @@
     }
 
     function formatDate(dateString) {
-      return new Date(dateString).toLocaleDateString('en-US', {
+      return new Date(dateString).toLocal
+
+eString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric'
       });
     }
-
-    window.editPass = function(id) {
-      const row = allRows.find(r => r.id === id);
-      if (row) {
-        showPasswordModal(() => openModal(row));
-      }
-    };
-
-    window.deletePass = async function(id) {
-      showPasswordModal(async () => {
-        if (confirm('Are you sure you want to delete this pass?')) {
-          setLoading(true);
-          try {
-            const { error } = await supabase
-              .from('monthly_pass')
-              .delete()
-              .eq('id', id);
-
-            if (error) throw error;
-            showToast('Pass deleted successfully');
-          } catch (error) {
-            console.error('Delete error:', error);
-            showToast('Failed to delete pass', 'error');
-          } finally {
-            setLoading(false);
-          }
-        }
-      });
-    };
 
     function renderTable(data) {
       if (data.length === 0) {
@@ -738,6 +534,32 @@
       
       updateStats();
     }
+
+    // Global functions for onclick handlers
+    window.editPass = (id) => {
+      const row = allRows.find(r => r.id === id);
+      if (row) openModal(row);
+    };
+
+    window.deletePass = async (id) => {
+      if (!confirm("Are you sure you want to delete this pass? This action cannot be undone.")) {
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const { error } = await supabase.from('monthly_pass').delete().eq('id', id);
+        if (error) throw error;
+        
+        showToast("Pass deleted successfully");
+        // Real-time will handle the update
+      } catch (error) {
+        console.error('Delete error:', error);
+        showToast("Failed to delete pass", 'error');
+      } finally {
+        setLoading(false);
+      }
+    };
 
     // Event Handlers
     elements.saveModalBtn.onclick = async () => {
@@ -810,6 +632,7 @@
     };
 
     elements.cancelModalBtn.onclick = closeModal;
+    elements.addPassBtn.onclick = () => openModal();
     elements.toastClose.onclick = () => elements.toast.classList.add('hidden');
 
     // Close modal on backdrop click
