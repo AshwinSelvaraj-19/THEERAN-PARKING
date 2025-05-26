@@ -350,7 +350,35 @@
       <p class="mt-2 text-sm text-gray-600">Loading...</p>
     </div>
   </div>
-
+  <script>
+    const correctPassword = "theeran"; // Replace with actual secure pass
+    let isAuthorized = false;
+  
+    function unlockButton() {
+      const userInput = prompt("Enter the passcode to access admin features:");
+      if (userInput === correctPassword) {
+        isAuthorized = true;
+        document.getElementById("addPassBtn").style.display = "flex";
+  
+        // In case table rows are already rendered (manually trigger unhide)
+        showActionButtons();
+      } else {
+        alert("Unauthorized!");
+      }
+    }
+  
+    function showActionButtons() {
+      document.querySelectorAll(".edit-btn").forEach(btn => btn.classList.remove("hidden"));
+      document.querySelectorAll(".delete-btn").forEach(btn => btn.classList.remove("hidden"));
+    }
+  
+    window.onload = () => {
+      document.getElementById("addPassBtn").style.display = "none";
+      unlockButton();
+    };
+  </script>
+  
+  
   <!-- JavaScript -->
   <script type="module">
     import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
@@ -517,14 +545,14 @@ eString('en-US', {
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
             <div class="flex items-center space-x-2">
-              <button onclick="editPass(${row.id})" 
-                class="text-blue-600 hover:text-blue-900 transition-colors px-3 py-1 rounded hover:bg-blue-50">
-                Edit
-              </button>
-              <button onclick="deletePass(${row.id})" 
-                class="text-red-600 hover:text-red-900 transition-colors px-3 py-1 rounded hover:bg-red-50">
-                Delete
-              </button>
+<button onclick="editPass(${row.id})" 
+  class="edit-btn text-blue-600 hover:text-blue-900 transition-colors px-3 py-1 rounded hover:bg-blue-50 hidden">
+  Edit
+</button>
+<button onclick="deletePass(${row.id})" 
+  class="delete-btn text-red-600 hover:text-red-900 transition-colors px-3 py-1 rounded hover:bg-red-50 hidden">
+  Delete
+</button>
             </div>
           </td>
         `;
@@ -533,6 +561,10 @@ eString('en-US', {
       });
       
       updateStats();
+      // 🔐 Finally — reveal action buttons if authorized
+      if (isAuthorized) {
+    showActionButtons();
+  }
     }
 
     // Global functions for onclick handlers
