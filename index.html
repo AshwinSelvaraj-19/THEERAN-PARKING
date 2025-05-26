@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | NAT Parking Assistance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .transition-section {
+      transition: transform 0.7s ease-in-out, opacity 0.7s ease-in-out;
+    }
+    .hidden-section {
+      transform: translateX(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .visible-section {
+      transform: translateX(0%);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body class="bg-white min-h-screen flex font-sans overflow-hidden">
+
+  <!-- Left Welcome Section -->
+  <section class="w-1/2 bg-[#1A2E45] text-white flex flex-col justify-center items-center p-10 fixed left-0 top-0 bottom-0 z-10">
+    <div class="bg-white text-[#1A2E45] p-10 rounded-2xl shadow-xl flex flex-col items-center text-center max-w-sm">
+      <img src="NAT logo bg removed.png" alt="NAT Logo" class="h-64 w-64 mb-0" />
+      <h1 class="text-3xl font-bold">Welcome to</h1>
+      <h2 class="text-2xl font-semibold text-green-600 mt-1">NAT Parking Community</h2>
+      <p class="text-blue-400 mt-4">Home to smart parking solutions</p>
+      <button id="toggleBtn"
+              class="mt-8 px-6 py-2 border-2 border-[#1A2E45] rounded-md hover:bg-[#163154] hover:text-white transition-all border-1">
+        Learn More
+      </button>
+    </div>
+  </section>
+
+  <!-- Right Container -->
+  <div class="ml-[50%] w-1/2 h-screen overflow-hidden relative">
+
+    <!-- Login Section -->
+    <div id="loginSection" class="absolute inset-0 px-10 py-16 flex items-center justify-center flex-col transition-section visible-section">
+      <div class="w-full max-w-md">
+        <h2 class="text-2xl font-bold text-gray-900 mb-1">Welcome!</h2>
+        <p class="text-sm text-gray-600 mb-6">Login to your account</p>
+
+        <form id="loginForm" class="space-y-4">
+          <div>
+            <label for="username" class="block text-sm font-medium text-gray-700">Your Company ID</label>
+            <input type="text" id="username" name="username" required
+                   class="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700">Your Company Password</label>
+            <input type="password" id="password" name="password" required
+                   class="mt-1 block w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+
+          <div class="flex justify-between items-center text-sm text-gray-600">
+            <label class="flex items-center">
+              <input type="checkbox" class="mr-2" /> Remember me
+            </label>
+            <a href="#" class="text-blue-500 hover:underline">Forgot password?</a>
+          </div>
+
+          <button type="submit"
+                  class="w-full bg-[#1A2E45] text-white py-2 rounded-md hover:bg-[#163154] transition-all">
+            Log In
+          </button>
+        </form>
+
+        <div class="mt-10 flex items-center justify-between">
+          <hr class="w-40 border-gray-300" />
+          <span class="px-3 text-gray-500 text-sm">Contact us</span>
+          <hr class="w-40 border-gray-300" />
+        </div>
+
+        <div class="mt-10 flex justify-center space-x-4">
+          <a href="https://www.linkedin.com/in/your-profile" target="_blank" class="flex items-center space-x-2 text-sm text-gray-600 hover:text-blue-600">
+            <img src="https://img.icons8.com/ios-filled/20/0077B5/linkedin.png"/>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://www.instagram.com/nat_technologies/#" target="_blank" class="flex items-center space-x-2 text-sm text-gray-600 hover:text-pink-500">
+            <img src="https://img.icons8.com/ios-filled/20/E4405F/instagram-new.png"/>
+            <span>Instagram</span>
+          </a>
+          <a href="mailto:nattechnologies2025@gmail.com" target="_blank" class="flex items-center space-x-2 text-sm text-gray-600 hover:text-red-500">
+            <img src="https://img.icons8.com/ios-filled/20/EA4335/gmail.png"/>
+            <span>Gmail</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="featuresSection" class="absolute inset-0 px-8 py-16 overflow-y-auto transition-section hidden-section">
+      <header class="mb-10">
+        <h1 class="text-3xl font-bold text-[#1A2E45]">Features</h1>
+        <p class="text-gray-500 mt-2">Explore the smart services we offer</p>
+      </header>
+
+      <section class="space-y-12">
+        <div class="fade-in bg-gray-100 p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold text-[#1A2E45]">🔍 Real-time Vehicle Summary</h3>
+          <p class="text-gray-600 mt-2">Check parking slots live anywhere anytime without entering the premises.</p>
+        </div>
+        <div class="fade-in bg-gray-100 p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold text-[#1A2E45]">📷 ANPR Camera Integration (Soon)</h3>
+          <p class="text-gray-600 mt-2">Automatic detection of vehicle number plates and entry logs.</p>
+        </div>
+        <div class="fade-in bg-gray-100 p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold text-[#1A2E45]">📊 Admin Dashboard</h3>
+          <p class="text-gray-600 mt-2">Monitor entries, exits, revenue, and generate reports.</p>
+        </div>
+        <div class="fade-in bg-gray-100 p-6 rounded-lg shadow-md">
+          <h3 class="text-xl font-semibold text-[#1A2E45]">💳 Smart Payment Options (Soon)</h3>
+          <p class="text-gray-600 mt-2">Accept card, UPI, and app payments easily.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Section toggle logic
+    const toggleBtn = document.getElementById("toggleBtn");
+    const loginSection = document.getElementById("loginSection");
+    const featuresSection = document.getElementById("featuresSection");
+    let showingFeatures = false;
+
+    toggleBtn.addEventListener("click", () => {
+      showingFeatures = !showingFeatures;
+      if (showingFeatures) {
+        loginSection.classList.remove("visible-section");
+        loginSection.classList.add("hidden-section");
+        featuresSection.classList.remove("hidden-section");
+        featuresSection.classList.add("visible-section");
+        toggleBtn.textContent = "Back to Login";
+      } else {
+        featuresSection.classList.remove("visible-section");
+        featuresSection.classList.add("hidden-section");
+        loginSection.classList.remove("hidden-section");
+        loginSection.classList.add("visible-section");
+        toggleBtn.textContent = "Learn More";
+      }
+    });
+
+    // Fade-in animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+
+  <!-- Supabase Auth Script -->
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabaseUrl = "https://qprmenpbktfmlgrvmnms.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwcm1lbnBia3RmbWxncnZtbm1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDE3NTYsImV4cCI6MjA2MjQ3Nzc1Nn0.CA69E_h-tjA-cDp165Qa5ONc_PfTIzLqMDhaqQqEo7M";
+    const supabase = createClient(supabaseUrl, supabaseKey);
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("loginForm");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!username || !password) {
+          alert("Please enter both username and password.");
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from('natlogin')
+          .select('*')
+          .eq('username', username)
+          .eq('password', password)
+          .single();
+
+        if (error || !data) {
+          alert("Invalid username or password.");
+        } else {
+          localStorage.setItem("username", data.username);
+          window.location.href = "theeranlogin.html";
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Theeran Parking - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen flex items-center justify-center px-4">
+
+  <!-- Back Button -->
+  <button onclick="history.back()" class="absolute top-4 left-4 flex items-center space-x-2 text-[#1A2E45] font-semibold text-sm sm:text-base">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+    <span class="hover:no-underline hover:text-blue-500">Back</span>
+  </button>
+
+  <!-- Login Card -->
+  <div class="bg-white shadow-xl rounded-xl p-6 sm:p-8 w-full max-w-sm sm:max-w-md">
+    <div class="flex flex-col items-center mb-4">
+      <img src="NAT logo bg removed.png" alt="Logo" class="h-24 w-24 sm:h-40 sm:w-40 mb-2" />
+      <h2 class="text-xl sm:text-2xl font-semibold text-[#1A2E45] text-center">Theeran Parking</h2>
+    </div>
+
+    <form class="space-y-5 sm:space-y-6">
+      <div>
+        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+        <input type="text" id="username" placeholder="Enter username"
+          class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A2E45] focus:border-[#1A2E45]" />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <input type="password" id="password" placeholder="Enter password"
+          class="mt-1 block w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#1A2E45] focus:border-[#1A2E45]" />
+      </div>
+
+      <button type="submit"
+        class="w-full py-3 rounded-md bg-[#1A2E45] text-white font-semibold hover:bg-[#163050] transition-all duration-300">
+        Login
+      </button>
+    </form>
+
+    <p class="mt-6 text-center text-sm text-gray-600">
+      Create new user? <a href="#" class="text-[#1A2E45] font-semibold hover:underline">Register</a>
+    </p>
+  </div>
+
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+    const supabaseUrl = "https://qprmenpbktfmlgrvmnms.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwcm1lbnBia3RmbWxncnZtbm1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDE3NTYsImV4cCI6MjA2MjQ3Nzc1Nn0.CA69E_h-tjA-cDp165Qa5ONc_PfTIzLqMDhaqQqEo7M";
+    const supabase = createClient(supabaseUrl, supabaseKey, {
+      global: {
+        headers: { 'Accept': 'application/json' }
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.querySelector("form");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+  
+      
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!username || !password) {
+          alert("Please enter both username and password.");
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from('theeran_login')
+          .select('*', { head: false })
+          .eq('username', username)
+          .eq('password', password)
+          .maybeSingle();
+
+        if (error || !data) {
+          alert("Invalid username or password.");
+        } else {
+          localStorage.setItem("username", data.username);
+          window.location.href = "Dashboard.html";
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
