@@ -111,13 +111,21 @@
 
       <div>
         <label class="block text-[#1A2E45] font-medium mb-1">Name:</label>
-        <input id="ownerName" type="text" class="bg-gray-100 px-3 py-2 rounded-md w-full" pattern="[A-Za-z\s]*" title="Only letters and spaces allowed" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+        <input id="ownerName" type="text" class="bg-gray-100 px-3 py-2 rounded-md w-full"
+               pattern="[A-Za-z\s]*"
+               title="Only letters and spaces allowed"
+               oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
       </div>
-
+      
       <div>
         <label class="block text-[#1A2E45] font-medium mb-1">Mobile:</label>
-        <input id="ownerMobile" type="tel" class="bg-gray-100 px-3 py-2 rounded-md w-full" pattern="[0-9]{10}" maxlength="10" title="Enter a 10-digit mobile number" oninput="this.value = this.value.replace(/\D/g, '')">
+        <input id="ownerMobile" type="tel" class="bg-gray-100 px-3 py-2 rounded-md w-full"
+               pattern="[0-9]{10}"
+               maxlength="10"
+               title="Enter a 10-digit mobile number"
+               oninput="this.value = this.value.replace(/\D/g, '')">
       </div>
+      
       
       <div class="flex justify-center mt-2">
         <button id="saveButton" class="bg-blue-700 text-white px-8 py-2.5 rounded-md hover:bg-blue-800 transition-all duration-200 text-base font-medium">Save Entry</button>
@@ -280,8 +288,8 @@
     const ownerName = document.getElementById('ownerName').value.trim();
     const ownerMobile = document.getElementById('ownerMobile').value.trim();
 
-    if (!vehicleNumber || !vehicleType || !ownerName || !ownerMobile) {
-      alert('All fields are required.');
+    if (!vehicleNumber || !vehicleType || vehicleDistrict || vehicleState || vehicleSeries || vehicleDigits) {
+      alert('Vehicle number and type are required.');
       return;
     }
 
