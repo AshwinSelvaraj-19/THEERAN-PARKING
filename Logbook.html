@@ -7,23 +7,39 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @media print {
+      @page {
+        size: 58mm auto;
+        margin: 0;
+      }
+  
       body * {
         visibility: hidden;
       }
+  
       #billPrintSection, #billPrintSection * {
         visibility: visible;
       }
+  
       #billPrintSection {
         position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
+        width: 58mm;
+        padding: 0;
       }
+  
       nav, aside, button, input, #searchButton, #confirmationModal {
         display: none !important;
       }
+  
+      html, body {
+        width: 58mm;
+        margin: 0;
+        padding: 0;
+      }
     }
   </style>
+  
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen">
 <!--navbar-->
@@ -43,17 +59,12 @@
       <svg class="w-5 h-5 cursor-pointer text-[#1A2E45]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" onclick="toggleDropdown()">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
       </svg>
-      <div id="dropdown" class="absolute right-0 mt-20 w-48 bg-white shadow-lg rounded-md border border-gray-200 hidden z-50 overflow-hidden">
-          <ul class="text-sm" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-              <li id="dropdownUserName" class="px-4 py-3 border-b border-gray-100 sm:hidden" role="none">
-                  <span class="block text-sm font-semibold text-gray-800 truncate" role="menuitem">Duraimani S</span>
-              </li>
-              <li role="none">
-                  <button onclick="showLogoutPopup()" class="w-full text-left px-4 py-3 hover:bg-blue-50 text-[#1A2E45] transition-colors duration-150" role="menuitem">
-                      Log Out
-                  </button>
-              </li>
-          </ul>
+      <div id="dropdown" class="absolute right-0 sm:left-0 mt-10 sm:mt-20 w-32 sm:w-40 bg-white shadow-md rounded-md text-[#1A2E45] border border-gray-200 hidden z-50">
+        <ul class="text-sm">
+          <li>
+            <button onclick="showLogoutPopup()" class="w-full text-left px-4 py-2 hover:bg-blue-100 rounded-b-md">Log Out</button>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -171,7 +182,36 @@
     </div>
   </div>
 </div>
-
+<script>
+   function toggleDropdown() {
+      const dropdown = document.getElementById("dropdown");
+      dropdown.classList.toggle("hidden");
+    }
+  
+    function showLogoutPopup() {
+      document.getElementById("popupOverlay").classList.remove("hidden");
+      document.body.classList.add("overflow-hidden");
+    }
+  
+    function closePopup() {
+      document.getElementById("popupOverlay").classList.add("hidden");
+      document.body.classList.remove("overflow-hidden");
+    }
+  
+    function logout() {
+      localStorage.removeItem("username");
+      window.location.href = "theeranlogin.html";
+    }
+  
+    document.addEventListener("click", function (event) {
+      const dropdown = document.getElementById("dropdown");
+      const dropdownButton = document.querySelector(".group");
+  
+      if (!dropdownButton.contains(event.target) && !dropdown.classList.contains("hidden")) {
+        dropdown.classList.add("hidden");
+      }
+    });
+</script>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
       const username = localStorage.getItem("username");
@@ -288,7 +328,7 @@
     const ownerName = document.getElementById('ownerName').value.trim();
     const ownerMobile = document.getElementById('ownerMobile').value.trim();
 
-    if (!vehicleNumber || !vehicleType || !vehicleDistrict || !vehicleState || !vehicleSeries || !vehicleDigits) {
+    if (!vehicleNumber || !vehicleType || !vehicleDistrict || !vehicleState || !vehicleSeries) {
       alert('Vehicle number and type are required.');
       return;
     }
