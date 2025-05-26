@@ -7,39 +7,44 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @media print {
-      @page {
-        size: 58mm auto;
-        margin: 0;
-      }
-  
-      body * {
-        visibility: hidden;
-      }
-  
-      #billPrintSection, #billPrintSection * {
-        visibility: visible;
-      }
-  
-      #billPrintSection {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 58mm;
-        padding: 0;
-      }
-  
-      nav, aside, button, input, #searchButton, #confirmationModal {
-        display: none !important;
-      }
-  
-      html, body {
-        width: 58mm;
-        margin: 0;
-        padding: 0;
-      }
-    }
+  @page {
+    size: 58mm auto;
+    margin: 0;
+  }
+
+  html, body {
+    width: 58mm;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Hide everything by default */
+  body * {
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+  }
+
+  /* Show only the bill section */
+  #billPrintSection, #billPrintSection * {
+    visibility: visible;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Fix layout for the bill only */
+  #billPrintSection {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 58mm;
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+}
+
   </style>
-  
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen">
 <!--navbar-->
@@ -166,7 +171,7 @@
 
       <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mt-4">
         <button id="editButton" class="bg-yellow-500 text-white px-6 py-2 rounded-md hover:bg-yellow-600 transition-all duration-200 w-full sm:w-auto">Edit</button>
-        <button id="printButton" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition-all duration-200 w-full sm:w-auto" onclick="printBill()">Print Bill</button>
+        <button id="printButton" type="button" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition-all duration-200 w-full sm:w-auto">Print Bill</button>
       </div>
     </form>
   </main>
