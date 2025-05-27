@@ -102,7 +102,7 @@
               <option value="TS">TS</option>
               <option value="PY">PY</option>
             </select>
-            <input id="vehicleDistrict" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" type="text" inputmode="text" pattern="[A-Za-z]{1,2}" maxlength="2" placeholder="AZ" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '')" required>
+            <input id="vehicleDistrict" type="tel" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" inputmode="numeric" pattern="\d{1,2}" maxlength="2" placeholder="39" oninput="this.value = this.value.replace(/\D/g, '')" required>
             <input id="vehicleSeries" type="text" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" maxlength="2" placeholder="AZ" pattern="[A-Za-z]{1,2}" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '')" required>
             <input id="vehicleDigits" type="tel"  class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" inputmode="numeric" pattern="\d{1,4}" maxlength="4" placeholder="9999" oninput="this.value = this.value.replace(/\D/g, '')" required>
 
