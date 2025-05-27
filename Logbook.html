@@ -227,6 +227,7 @@
     const supabaseUrl = "https://qprmenpbktfmlgrvmnms.supabase.co";
     const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwcm1lbnBia3RmbWxncnZtbm1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDE3NTYsImV4cCI6MjA2MjQ3Nzc1Nn0.CA69E_h-tjA-cDp165Qa5ONc_PfTIzLqMDhaqQqEo7M";
     const supabase = createClient(supabaseUrl, supabaseKey);
+    const username = localStorage.getItem("username") || "Unknown User";
 
     let currentTokenData = null;
     let isEditing = false;
@@ -325,7 +326,7 @@
             .update({
               Vehicle_no: vehicleNumber,
               vehicleType: vehicleType,
-              User: ownerName,
+              User: username,
               Mobile: ownerMobile,
               Name: ownerName
             })
@@ -344,7 +345,7 @@
               Vehicle_no: vehicleNumber,
               vehicleType: vehicleType,
               in_time: inTime,
-              User: ownerName,
+              User: username,
               Mobile: ownerMobile,
               Name: ownerName
             }]);
