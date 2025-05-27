@@ -7,47 +7,42 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @media print {
-  @page {
-    size: 58mm auto;
-    margin: 0;
-  }
+      @page {
+        size: 58mm auto;
+        margin: 0;
+      }
 
-  html, body {
-    width: 58mm;
-    margin: 0;
-    padding: 0;
-  }
+      html, body {
+        width: 58mm;
+        margin: 0;
+        padding: 0;
+      }
 
-  /* Hide everything by default */
-  body * {
-    visibility: hidden;
-    height: 0;
-    overflow: hidden;
-  }
+      body * {
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+      }
 
-  /* Show only the bill section */
-  #billPrintSection, #billPrintSection * {
-    visibility: visible;
-    height: auto;
-    overflow: visible;
-  }
+      #billPrintSection, #billPrintSection * {
+        visibility: visible;
+        height: auto;
+        overflow: visible;
+      }
 
-  /* Fix layout for the bill only */
-  #billPrintSection {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 58mm;
-    margin: 0;
-    padding: 0;
-    background: white;
-  }
-}
-
+      #billPrintSection {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 58mm;
+        margin: 0;
+        padding: 0;
+        background: white;
+      }
+    }
   </style>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-blue-100 min-h-screen">
-<!--navbar-->
   <nav class="w-full h-20 flex items-center justify-between px-4 sm:px-6 fixed top-0 left-0 right-0 z-50 bg-white shadow-lg">
     <div class="flex items-center space-x-2">
       <button id="hamburgerButton" class="md:hidden p-2 -ml-2 text-[#1A2E45]">
@@ -64,7 +59,7 @@
       <svg class="w-5 h-5 cursor-pointer text-[#1A2E45]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" onclick="toggleDropdown()">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
       </svg>
-      <div id="dropdown" class="absolute right-0 sm:left-0 mt-10 sm:mt-20 w-32 sm:w-40 bg-white shadow-md rounded-md text-[#1A2E45] border border-gray-200 hidden z-50">
+      <div id="dropdown" class="absolute right-0 mt-20 w-48 bg-white shadow-lg rounded-md border border-gray-200 hidden z-50">
         <ul class="text-sm">
           <li>
             <button onclick="showLogoutPopup()" class="w-full text-left px-4 py-2 hover:bg-blue-100 rounded-b-md">Log Out</button>
@@ -74,273 +69,193 @@
     </div>
   </nav>
 
-<div class="flex pt-20">
-  <aside id="sideNav" class="w-64 fixed top-20 left-0 h-[calc(100vh-5rem)] bg-[#1A2E45] text-white p-4 shadow-md z-40 transform -translate-x-full transition-transform duration-300 ease-in-out 
-                           md:translate-x-0 md:h-[calc(100vh-5rem)] md:z-30 md:p-6">
-    <button id="closeSideNavButton" class="md:hidden absolute top-2 right-2 text-white p-1">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-    </button>
-    <nav class="flex flex-col gap-4 text-sm font-medium mt-0 md:gap-5">
-      <a href="Dashboard.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Dashboard</a>
-      <a href="Logbook.html" class="bg-blue-700 px-3 py-2 md:px-4 rounded-md transition-all">Log Book</a>
-      <a href="closetoken.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Close Token</a>
-      <a href="vehiclesummary.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Vehicle Summary</a>
-      <a href="accountsummary.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Account Statement</a>
-      <a href="monthlypass.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Monthly Pass</a>
-      <a href="#" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Settings</a>
-    </nav>
-  </aside>
+  <div class="flex pt-20">
+    <aside id="sideNav" class="w-64 fixed top-20 left-0 h-[calc(100vh-5rem)] bg-[#1A2E45] text-white p-4 shadow-md z-40 transform -translate-x-full transition-transform duration-300 ease-in-out md:translate-x-0 md:h-[calc(100vh-5rem)] md:z-30 md:p-6">
+      <button id="closeSideNavButton" class="md:hidden absolute top-2 right-2 text-white p-1">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+      <nav class="flex flex-col gap-4 text-sm font-medium mt-0 md:gap-5">
+        <a href="Dashboard.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Dashboard</a>
+        <a href="Logbook.html" class="bg-blue-700 px-3 py-2 md:px-4 rounded-md transition-all">Log Book</a>
+        <a href="closetoken.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Close Token</a>
+        <a href="vehiclesummary.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Vehicle Summary</a>
+        <a href="accountsummary.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Account Statement</a>
+        <a href="monthlypass.html" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Monthly Pass</a>
+        <a href="#" class="hover:bg-blue-800 px-3 py-2 md:px-4 rounded-md transition-all">Settings</a>
+      </nav>
+    </aside>
 
-  <main class="p-4 sm:p-6 md:p-10 w-full md:ml-64 flex justify-center">
-    <form class="bg-white rounded-xl shadow-xl p-4 sm:p-6 md:p-8 flex flex-col gap-5 sm:gap-6 w-full max-w-xl">
-      <div class="text-center">
-        <h2 class="text-2xl sm:text-3xl font-bold text-[#1A2E45]">Log Book</h2>
-      </div>
-
-      <div>
-        <label class="block text-[#1A2E45] font-medium mb-1">Vehicle Number:</label>
-        <div class="flex flex-col gap-2 sm:flex-row sm:gap-3">
-          <select id="vehicleState" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" required>
-            <option value="TN">TN</option>
-            <option value="KL">KL</option>
-            <option value="KA">KA</option>
-            <option value="AP">AP</option>
-            <option value="TS">TS</option>
-            <option value="PY">PY</option>
-          </select>
-          <input id="vehicleDistrict" type="text" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" maxlength="2" placeholder="39,37..." pattern="\d{1,2}" oninput="this.value = this.value.replace(/\D/g, '')" required>
-          <input id="vehicleSeries" type="text" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" maxlength="2" placeholder="AZ" pattern="[A-Za-z]{1,2}" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '')" required>
-          <input id="vehicleDigits" type="text" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" maxlength="4" placeholder="9999" pattern="\d{1,4}" oninput="this.value = this.value.replace(/\D/g, '')" required>
+    <main class="p-4 sm:p-6 md:p-10 w-full md:ml-64 flex justify-center">
+      <form class="bg-white rounded-xl shadow-xl p-4 sm:p-6 md:p-8 flex flex-col gap-5 sm:gap-6 w-full max-w-xl">
+        <div class="text-center">
+          <h2 class="text-2xl sm:text-3xl font-bold text-[#1A2E45]">Log Book</h2>
         </div>
-      </div>
 
-      <div>
-        <label class="block text-[#1A2E45] font-medium mb-1">Vehicle Type:</label>
-        <select id="vehicleType" class="bg-gray-100 px-4 py-2 rounded-md w-full" required>
-          <option value="">Select Type</option>
-          <option value="Bike">Bike</option>
-          <option value="Scooty">Scooty</option>
-          <option value="Car">Car</option>
-          <option value="EV">EV</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block text-[#1A2E45] font-medium mb-1">Name:</label>
-        <input id="ownerName" type="text" class="bg-gray-100 px-3 py-2 rounded-md w-full"
-               pattern="[A-Za-z\s]*"
-               title="Only letters and spaces allowed"
-               oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
-      </div>
-      
-      <div>
-        <label class="block text-[#1A2E45] font-medium mb-1">Mobile:</label>
-        <input id="ownerMobile" type="tel" class="bg-gray-100 px-3 py-2 rounded-md w-full"
-               pattern="[0-9]{10}"
-               maxlength="10"
-               title="Enter a 10-digit mobile number"
-               oninput="this.value = this.value.replace(/\D/g, '')">
-      </div>
-      
-      
-      <div class="flex justify-center mt-2">
-        <button id="saveButton" class="bg-blue-700 text-white px-8 py-2.5 rounded-md hover:bg-blue-800 transition-all duration-200 text-base font-medium">Save Entry</button>
-      </div>
-      
-      <div id="billPrintSection" class="w-full p-2 sm:p-4 md:p-6 border-t border-gray-200 mt-6 print-container">
-        <div class="bg-gray-50 rounded-md p-3 sm:p-4 shadow">
-          <h3 class="text-lg font-semibold text-center mb-1 sm:mb-2 text-gray-700">THEERAN</h3>
-          <p class="text-xs sm:text-sm text-center text-gray-500 mb-1">Two Wheeler & Car Parking</p>
-          <p class="text-xs sm:text-sm text-center text-gray-500 mb-2">Karumathampatti</p>
-          <p class="text-[10px] sm:text-xs text-center text-gray-400 mb-2">Mobile: +91 9842210042, 9842234680</p>
-          <div class="bg-white rounded-md p-2 border border-gray-300 my-3">
-            <p class="text-center font-bold text-xl mb-2 text-gray-800">TOKEN</p>
-            <div class="grid grid-cols-2 gap-x-2 gap-y-1 mb-1 text-xs sm:text-sm text-gray-700">
-              <div>Member Name:</div><div class="font-medium text-right"><span id="memberNameDisplay"></span></div>
-              <div>Mobile:</div><div class="font-medium text-right"><span id="mobileDisplay"></span></div>
-              <div>IN:</div><div class="font-medium text-right"><span id="inTimeDisplay"></span></div>
-              <div>Token No:</div><div class="font-bold text-lg text-right"><span id="tokenNumberDisplay"></span></div>
-              <div>Vehicle No:</div><div class="font-medium text-right"><span id="vehicleNumberDisplay"></span></div>
-            </div>
-            <p class="text-[10px] sm:text-xs text-center italic text-gray-400 mt-2">Thank you! Visit again.</p>
+        <div>
+          <label class="block text-[#1A2E45] font-medium mb-1">Vehicle Number:</label>
+          <div class="flex flex-col gap-2 sm:flex-row sm:gap-3">
+            <select id="vehicleState" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" required>
+              <option value="TN">TN</option>
+              <option value="KL">KL</option>
+              <option value="KA">KA</option>
+              <option value="AP">AP</option>
+              <option value="TS">TS</option>
+              <option value="PY">PY</option>
+            </select>
+            <input id="vehicleDistrict" type="text" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" maxlength="2" placeholder="39,37..." pattern="\d{1,2}" oninput="this.value = this.value.replace(/\D/g, '')" required>
+            <input id="vehicleSeries" type="text" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" maxlength="2" placeholder="AZ" pattern="[A-Za-z]{1,2}" oninput="this.value = this.value.toUpperCase().replace(/[^A-Z]/g, '')" required>
+            <input id="vehicleDigits" type="text" class="bg-gray-100 px-2 py-2 rounded-md w-full sm:w-1/4" maxlength="4" placeholder="9999" pattern="\d{1,4}" oninput="this.value = this.value.replace(/\D/g, '')" required>
           </div>
-          <p class="text-[10px] sm:text-xs text-center italic text-gray-400 mt-2">Powered by NAT Technologies.</p>
-          <p class="text-[10px] sm:text-xs text-center italic text-gray-400 mt-2">Mobile:7397514680</p>
         </div>
-      </div>
 
-      <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mt-4">
-        <button id="editButton" class="bg-yellow-500 text-white px-6 py-2 rounded-md hover:bg-yellow-600 transition-all duration-200 w-full sm:w-auto">Edit</button>
-        <button id="printButton" type="button" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition-all duration-200 w-full sm:w-auto">Print Bill</button>
-      </div>
-    </form>
-  </main>
-</div>
+        <div>
+          <label class="block text-[#1A2E45] font-medium mb-1">Vehicle Type:</label>
+          <select id="vehicleType" class="bg-gray-100 px-4 py-2 rounded-md w-full" required>
+            <option value="">Select Type</option>
+            <option value="Bike">Bike</option>
+            <option value="Scooty">Scooty</option>
+            <option value="Car">Car</option>
+            <option value="EV">EV</option>
+          </select>
+        </div>
 
-<div id="popupOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-60 flex items-center justify-center p-4">
-  <div class="bg-white rounded-lg shadow-xl p-6 sm:p-8 w-full max-w-md text-center">
-    <h3 class="text-lg sm:text-xl font-semibold text-gray-700 mb-4">Confirm Logout</h3>
-    <p class="text-gray-600 mb-6">Are you sure you want to log out?</p>
-    <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-      <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-full sm:w-auto">Confirm</button>
-      <button onclick="closePopup()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 w-full sm:w-auto">Cancel</button>
+        <div>
+          <label class="block text-[#1A2E45] font-medium mb-1">Name:</label>
+          <input id="ownerName" type="text" class="bg-gray-100 px-3 py-2 rounded-md w-full"
+                 pattern="[A-Za-z\s]*"
+                 title="Only letters and spaces allowed"
+                 oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')">
+        </div>
+        
+        <div>
+          <label class="block text-[#1A2E45] font-medium mb-1">Mobile:</label>
+          <input id="ownerMobile" type="tel" class="bg-gray-100 px-3 py-2 rounded-md w-full"
+                 pattern="[0-9]{10}"
+                 maxlength="10"
+                 title="Enter a 10-digit mobile number"
+                 oninput="this.value = this.value.replace(/\D/g, '')">
+        </div>
+        
+        <div class="flex justify-center mt-2">
+          <button id="saveButton" class="bg-blue-700 text-white px-8 py-2.5 rounded-md hover:bg-blue-800 transition-all duration-200 text-base font-medium">Save Entry</button>
+        </div>
+        
+        <div id="billPrintSection" class="w-full p-2 sm:p-4 md:p-6 border-t border-gray-200 mt-6 print-container">
+          <div class="bg-gray-50 rounded-md p-3 sm:p-4 shadow">
+            <h3 class="text-lg font-semibold text-center mb-1 sm:mb-2 text-gray-700">THEERAN</h3>
+            <p class="text-xs sm:text-sm text-center text-gray-500 mb-1">Two Wheeler & Car Parking</p>
+            <p class="text-xs sm:text-sm text-center text-gray-500 mb-2">Karumathampatti</p>
+            <p class="text-[10px] sm:text-xs text-center text-gray-400 mb-2">Mobile: +91 9842210042, 9842234680</p>
+            <div class="bg-white rounded-md p-2 border border-gray-300 my-3">
+              <p class="text-center font-bold text-xl mb-2 text-gray-800">TOKEN</p>
+              <div class="grid grid-cols-2 gap-x-2 gap-y-1 mb-1 text-xs sm:text-sm text-gray-700">
+                <div>Member Name:</div><div class="font-medium text-right"><span id="memberNameDisplay"></span></div>
+                <div>Mobile:</div><div class="font-medium text-right"><span id="mobileDisplay"></span></div>
+                <div>IN:</div><div class="font-medium text-right"><span id="inTimeDisplay"></span></div>
+                <div>Token No:</div><div class="font-bold text-lg text-right"><span id="tokenNumberDisplay"></span></div>
+                <div>Vehicle No:</div><div class="font-medium text-right"><span id="vehicleNumberDisplay"></span></div>
+              </div>
+              <p class="text-[10px] sm:text-xs text-center italic text-gray-400 mt-2">Thank you! Visit again.</p>
+            </div>
+            <p class="text-[10px] sm:text-xs text-center italic text-gray-400 mt-2">Powered by NAT Technologies.</p>
+            <p class="text-[10px] sm:text-xs text-center italic text-gray-400 mt-2">Mobile:7397514680</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-6 mt-4">
+          <button id="editButton" type="button" class="bg-yellow-500 text-white px-6 py-2 rounded-md hover:bg-yellow-600 transition-all duration-200 w-full sm:w-auto">Edit</button>
+          <button id="printButton" type="button" class="bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition-all duration-200 w-full sm:w-auto">Print Bill</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <div id="popupOverlay" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-60 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl p-6 sm:p-8 w-full max-w-md text-center">
+      <h3 class="text-lg sm:text-xl font-semibold text-gray-700 mb-4">Confirm Logout</h3>
+      <p class="text-gray-600 mb-6">Are you sure you want to log out?</p>
+      <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+        <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 w-full sm:w-auto">Confirm</button>
+        <button onclick="closePopup()" class="bg-gray-300 text-gray-700 px-4 py-2 rounded hover:bg-gray-400 w-full sm:w-auto">Cancel</button>
+      </div>
     </div>
   </div>
-</div>
-<script>
-   function toggleDropdown() {
-      const dropdown = document.getElementById("dropdown");
-      dropdown.classList.toggle("hidden");
-    }
-  
-    function showLogoutPopup() {
-      document.getElementById("popupOverlay").classList.remove("hidden");
-      document.body.classList.add("overflow-hidden");
-    }
-  
-    function closePopup() {
-      document.getElementById("popupOverlay").classList.add("hidden");
-      document.body.classList.remove("overflow-hidden");
-    }
-  
-    function logout() {
-      localStorage.removeItem("username");
-      window.location.href = "theeranlogin.html";
-    }
-  
-    document.addEventListener("click", function (event) {
-      const dropdown = document.getElementById("dropdown");
-      const dropdownButton = document.querySelector(".group");
-  
-      if (!dropdownButton.contains(event.target) && !dropdown.classList.contains("hidden")) {
-        dropdown.classList.add("hidden");
-      }
-    });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
       const username = localStorage.getItem("username");
       const usernameDisplay = document.getElementById("usernameDisplay");
       if (username && usernameDisplay) {
         usernameDisplay.textContent = username;
       }
     });
-  function toggleDropdown() { document.getElementById("dropdown").classList.toggle("hidden"); }
-  function showLogoutPopup() { document.getElementById("popupOverlay").classList.remove("hidden"); document.body.classList.add("overflow-hidden"); }
-  function closePopup() { document.getElementById("popupOverlay").classList.add("hidden"); document.body.classList.remove("overflow-hidden"); }
-  function logout() { window.location.href = "theeranlogin.html"; }
-  function printBill() { window.print(); }
+  </script>
 
-  document.addEventListener("click", function(event) {
-    const dropdown = document.getElementById("dropdown");
-    const dropdownButtonContainer = document.querySelector(".group.relative");
-    if (dropdownButtonContainer && !dropdownButtonContainer.contains(event.target) && !dropdown.classList.contains("hidden")) {
-      dropdown.classList.add("hidden");
-    }
-  });
+  <script>
+    function toggleDropdown() { document.getElementById("dropdown").classList.toggle("hidden"); }
+    function showLogoutPopup() { document.getElementById("popupOverlay").classList.remove("hidden"); document.body.classList.add("overflow-hidden"); }
+    function closePopup() { document.getElementById("popupOverlay").classList.add("hidden"); document.body.classList.remove("overflow-hidden"); }
+    function logout() { window.location.href = "theeranlogin.html"; }
+    function printBill() { window.print(); }
 
-  const hamburgerButton = document.getElementById('hamburgerButton');
-  const closeSideNavButton = document.getElementById('closeSideNavButton');
-  const sideNav = document.getElementById('sideNav');
-  if (hamburgerButton && sideNav && closeSideNavButton) {
-    hamburgerButton.addEventListener('click', (e) => { e.stopPropagation(); sideNav.classList.remove('-translate-x-full'); sideNav.classList.add('translate-x-0'); document.body.classList.add("overflow-hidden"); });
-    closeSideNavButton.addEventListener('click', () => { sideNav.classList.remove('translate-x-0'); sideNav.classList.add('-translate-x-full'); document.body.classList.remove("overflow-hidden"); });
-    document.addEventListener('click', function(event) {
-      if (window.innerWidth < 768 && sideNav.classList.contains('translate-x-0') && !sideNav.contains(event.target) && !hamburgerButton.contains(event.target)) {
-        sideNav.classList.remove('translate-x-0'); sideNav.classList.add('-translate-x-full'); document.body.classList.remove("overflow-hidden");
+    document.addEventListener("click", function(event) {
+      const dropdown = document.getElementById("dropdown");
+      const dropdownButtonContainer = document.querySelector(".group.relative");
+      if (dropdownButtonContainer && !dropdownButtonContainer.contains(event.target) && !dropdown.classList.contains("hidden")) {
+        dropdown.classList.add("hidden");
       }
     });
-  }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const formInputs = [
-      'vehicleState', 'vehicleDistrict', 'vehicleSeries', 'vehicleDigits',
-      'vehicleType', 'ownerName', 'ownerMobile'
-    ].map(id => document.getElementById(id));
-
-    const saveButton = document.getElementById('saveButton');
-    const editButton = document.getElementById('editButton');
-    const printButton = document.getElementById('printButton');
-
-    function updateFormInteractivity(isSaved) {
-      formInputs.forEach(input => input.disabled = isSaved);
-      saveButton.disabled = isSaved;
-      editButton.disabled = !isSaved;
-      printButton.disabled = !isSaved;
+    const hamburgerButton = document.getElementById('hamburgerButton');
+    const closeSideNavButton = document.getElementById('closeSideNavButton');
+    const sideNav = document.getElementById('sideNav');
+    if (hamburgerButton && sideNav && closeSideNavButton) {
+      hamburgerButton.addEventListener('click', (e) => { e.stopPropagation(); sideNav.classList.remove('-translate-x-full'); sideNav.classList.add('translate-x-0'); document.body.classList.add("overflow-hidden"); });
+      closeSideNavButton.addEventListener('click', () => { sideNav.classList.remove('translate-x-0'); sideNav.classList.add('-translate-x-full'); document.body.classList.remove("overflow-hidden"); });
+      document.addEventListener('click', function(event) {
+        if (window.innerWidth < 768 && sideNav.classList.contains('translate-x-0') && !sideNav.contains(event.target) && !hamburgerButton.contains(event.target)) {
+          sideNav.classList.remove('translate-x-0'); sideNav.classList.add('-translate-x-full'); document.body.classList.remove("overflow-hidden");
+        }
+      });
     }
+  </script>
 
-    function clearBillPreview() {
-      ['memberNameDisplay', 'mobileDisplay', 'inTimeDisplay', 'tokenNumberDisplay', 'vehicleNumberDisplay']
-        .forEach(id => document.getElementById(id).textContent = '-');
-    }
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+  <script type="module">
+    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-    editButton.addEventListener('click', () => {
-      updateFormInteractivity(false);
-      formInputs[0].focus();
-    });
+    const supabaseUrl = "https://qprmenpbktfmlgrvmnms.supabase.co";
+    const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwcm1lbnBia3RmbWxncnZtbm1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDE3NTYsImV4cCI6MjA2MjQ3Nzc1Nn0.CA69E_h-tjA-cDp165Qa5ONc_PfTIzLqMDhaqQqEo7M";
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
-    printButton.addEventListener('click', () => {
-      if (document.getElementById('tokenNumberDisplay').textContent === '-') {
-        alert("No bill generated to print. Please save an entry first.");
-        return;
+    let currentTokenData = null;
+    let isEditing = false;
+
+    async function getNextTokenNumber() {
+      try {
+        const { data, error } = await supabase
+          .from('vehicle_details')
+          .select('Token_no')
+          .order('Token_no', { ascending: false })
+          .limit(1);
+
+        if (error) throw error;
+
+        if (!data || data.length === 0) {
+          return '1';
+        }
+
+        const lastToken = data[0].Token_no;
+        const nextNumber = parseInt(lastToken) + 1;
+        return nextNumber.toString();
+      } catch (error) {
+        console.error('Error fetching token number:', error);
+        return '1';
       }
-      printBill();
-    });
-
-    // Initial state setup
-    updateFormInteractivity(false);
-    clearBillPreview();
-    formInputs[0].focus();
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-
-  const supabaseUrl = "https://qprmenpbktfmlgrvmnms.supabase.co";
-  const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwcm1lbnBia3RmbWxncnZtbm1zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MDE3NTYsImV4cCI6MjA2MjQ3Nzc1Nn0.CA69E_h-tjA-cDp165Qa5ONc_PfTIzLqMDhaqQqEo7M";
-  const supabase = createClient(supabaseUrl, supabaseKey);
-
-  async function getNextTokenNumber() {
-    try {
-      const { data, error } = await supabase
-        .from('vehicle_details')
-        .select('Token_no')
-        .order('Token_no', { ascending: false })
-        .limit(1);
-
-      if (error) throw error;
-
-      if (!data || data.length === 0) {
-        return '1'; // Initial token number if no records exist
-      }
-
-      const lastToken = data[0].Token_no;
-      const nextNumber = parseInt(lastToken) + 1;
-      return nextNumber.toString();
-    } catch (error) {
-      console.error('Error fetching token number:', error);
-      return '1'; // Default to 1 if there's an error
-    }
-  }
-
-  document.getElementById('saveButton').addEventListener('click', async function(e) {
-    e.preventDefault();
-
-    const vehicleNumber = `${document.getElementById('vehicleState').value}-${document.getElementById('vehicleDistrict').value}-${document.getElementById('vehicleSeries').value}-${document.getElementById('vehicleDigits').value}`;
-    const vehicleType = document.getElementById('vehicleType').value;
-    const ownerName = document.getElementById('ownerName').value.trim();
-    const ownerMobile = document.getElementById('ownerMobile').value.trim();
-
-    if (!vehicleNumber || !vehicleType || !vehicleDistrict || !vehicleState || !vehicleSeries) {
-      alert('Vehicle number and type are required.');
-      return;
     }
 
-    try {
-      const tokenNo = await getNextTokenNumber();
-      const inTime = new Date().toLocaleString("en-IN", {
+    function getISTFormattedTime() {
+      return new Date().toLocaleString("en-IN", {
         timeZone: "Asia/Kolkata",
         day: "2-digit",
         month: "2-digit",
@@ -350,44 +265,132 @@
         second: "2-digit",
         hour12: true
       });
-
-      const vehicleData = {
-        Token_no: tokenNo,
-        Vehicle_no: vehicleNumber,
-        vehicleType: vehicleType,
-        in_time: inTime,
-        User: ownerName,
-        Mobile: ownerMobile,
-        Name: ownerName
-      };
-
-      const { error } = await supabase
-        .from('vehicle_details')
-        .insert([vehicleData]);
-        alert('vehicle details saved successfully!');
-      if (error) throw error;
-
-      // Update bill preview
-      document.getElementById('memberNameDisplay').textContent = ownerName;
-      document.getElementById('mobileDisplay').textContent = ownerMobile;
-      document.getElementById('inTimeDisplay').textContent = inTime;
-      document.getElementById('tokenNumberDisplay').textContent = tokenNo;
-      document.getElementById('vehicleNumberDisplay').textContent = vehicleNumber;
-
-      // Update form interactivity
-      const formInputs = document.querySelectorAll('input, select');
-      formInputs.forEach(input => input.disabled = true);
-      document.getElementById('saveButton').disabled = true;
-      document.getElementById('editButton').disabled = false;
-      document.getElementById('printButton').disabled = false;
-
-    } catch (error) {
-      console.error('Error saving vehicle details:', error);
-      alert('Error saving vehicle details. Please try again.');
     }
-  });
 
-</script>
+    function updateFormInteractivity(enabled) {
+      const formInputs = document.querySelectorAll('input, select');
+      formInputs.forEach(input => input.disabled = !enabled);
+      document.getElementById('saveButton').disabled = !enabled;
+      document.getElementById('editButton').disabled = enabled;
+      document.getElementById('printButton').disabled = enabled;
+    }
 
+    function clearForm() {
+      document.getElementById('vehicleState').value = 'TN';
+      document.getElementById('vehicleDistrict').value = '';
+      document.getElementById('vehicleSeries').value = '';
+      document.getElementById('vehicleDigits').value = '';
+      document.getElementById('vehicleType').value = '';
+      document.getElementById('ownerName').value = '';
+      document.getElementById('ownerMobile').value = '';
+    }
+
+    function clearBillPreview() {
+      document.getElementById('memberNameDisplay').textContent = '-';
+      document.getElementById('mobileDisplay').textContent = '-';
+      document.getElementById('inTimeDisplay').textContent = '-';
+      document.getElementById('tokenNumberDisplay').textContent = '-';
+      document.getElementById('vehicleNumberDisplay').textContent = '-';
+    }
+
+    document.getElementById('editButton').addEventListener('click', () => {
+      isEditing = true;
+      updateFormInteractivity(true);
+    });
+
+    document.getElementById('saveButton').addEventListener('click', async function(e) {
+      e.preventDefault();
+
+      const vehicleNumber = `${document.getElementById('vehicleState').value}-${document.getElementById('vehicleDistrict').value}-${document.getElementById('vehicleSeries').value}-${document.getElementById('vehicleDigits').value}`;
+      const vehicleType = document.getElementById('vehicleType').value;
+      const ownerName = document.getElementById('ownerName').value.trim();
+      const ownerMobile = document.getElementById('ownerMobile').value.trim();
+
+      if (!vehicleNumber || !vehicleType) {
+        alert('Vehicle number and type are required.');
+        return;
+      }
+
+      try {
+        let tokenNo;
+        let inTime;
+
+        if (isEditing && currentTokenData) {
+          // Update existing record
+          tokenNo = currentTokenData.Token_no;
+          inTime = currentTokenData.in_time;
+
+          const { error } = await supabase
+            .from('vehicle_details')
+            .update({
+              Vehicle_no: vehicleNumber,
+              vehicleType: vehicleType,
+              User: ownerName,
+              Mobile: ownerMobile,
+              Name: ownerName
+            })
+            .eq('Token_no', tokenNo);
+
+          if (error) throw error;
+        } else {
+          // Create new record
+          tokenNo = await getNextTokenNumber();
+          inTime = getISTFormattedTime();
+
+          const { error } = await supabase
+            .from('vehicle_details')
+            .insert([{
+              Token_no: tokenNo,
+              Vehicle_no: vehicleNumber,
+              vehicleType: vehicleType,
+              in_time: inTime,
+              User: ownerName,
+              Mobile: ownerMobile,
+              Name: ownerName
+            }]);
+
+          if (error) throw error;
+        }
+
+        // Update bill preview
+        document.getElementById('memberNameDisplay').textContent = ownerName || '-';
+        document.getElementById('mobileDisplay').textContent = ownerMobile || '-';
+        document.getElementById('inTimeDisplay').textContent = inTime;
+        document.getElementById('tokenNumberDisplay').textContent = tokenNo;
+        document.getElementById('vehicleNumberDisplay').textContent = vehicleNumber;
+
+        // Update form state
+        currentTokenData = {
+          Token_no: tokenNo,
+          in_time: inTime,
+          Vehicle_no: vehicleNumber,
+          vehicleType: vehicleType,
+          User: ownerName,
+          Mobile: ownerMobile,
+          Name: ownerName
+        };
+
+        isEditing = false;
+        updateFormInteractivity(false);
+        alert(isEditing ? 'Vehicle details updated successfully!' : 'Vehicle details saved successfully!');
+
+      } catch (error) {
+        console.error('Error saving vehicle details:', error);
+        alert('Error saving vehicle details. Please try again.');
+      }
+    });
+
+    document.getElementById('printButton').addEventListener('click', () => {
+      if (document.getElementById('tokenNumberDisplay').textContent === '-') {
+        alert("No bill generated to print. Please save an entry first.");
+        return;
+      }
+      printBill();
+    });
+
+    // Initial setup
+    updateFormInteractivity(true);
+    clearBillPreview();
+  </script>
 </body>
 </html>
