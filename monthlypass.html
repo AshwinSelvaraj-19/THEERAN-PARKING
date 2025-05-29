@@ -556,18 +556,6 @@ function formatDate(dateString) {
     window.editPass = (id) => {
       const row = allRows.find(r => r.id === id);
       if (!row) return;
-
-      const anyMonthActive = months.some(month => row[month] === true);
-      if (anyMonthActive && !isAuthorized) {
-        const input = prompt("Enter password to edit this pass:");
-        if (input !== correctPassword) {
-          alert("Incorrect password. Edit denied.");
-          return;
-        }
-        isAuthorized = true;
-        showActionButtons(); // Just in case we want to reveal buttons post-auth
-      }
-
       openModal(row);
     };
 
@@ -787,6 +775,22 @@ function formatDate(dateString) {
 
     // Start the app
     initializeApp();
+
+    // Handle checkbox protection (inside the modal)
+    document.querySelectorAll('#passModal input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', (e) => {
+        const checkbox = e.target;
+
+        // If the user is trying to uncheck it
+        if (!checkbox.checked) {
+          const confirmed = prompt("Enter password to uncheck this month:");
+          if (confirmed !== correctPassword) {
+            alert("Incorrect password. Action cancelled.");
+            checkbox.checked = true; // Revert back
+          }
+        }
+      });
+    });
   </script>
 </body>
 </html>
