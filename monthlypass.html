@@ -354,27 +354,13 @@
     const correctPassword = "theeran"; // Replace with actual secure pass
     let isAuthorized = false;
   
-    function unlockButton() {
-      const userInput = prompt("Enter the passcode to access admin features:");
-      if (userInput === correctPassword) {
-        isAuthorized = true;
-        document.getElementById("addPassBtn").style.display = "flex";
-  
-        // In case table rows are already rendered (manually trigger unhide)
-        showActionButtons();
-      } else {
-        alert("Unauthorized Access Found!");
-      }
-    }
-  
     function showActionButtons() {
-      document.querySelectorAll(".edit-btn").forEach(btn => btn.classList.remove("hidden"));
-      document.querySelectorAll(".delete-btn").forEach(btn => btn.classList.remove("hidden"));
+      // This function is no longer needed since buttons are always visible
+      // But we'll keep it for the isAuthorized state management
     }
   
     window.onload = () => {
-      document.getElementById("addPassBtn").style.display = "none";
-      unlockButton();
+      document.getElementById("addPassBtn").style.display = "flex";
     };
   </script>
   
@@ -544,14 +530,14 @@ function formatDate(dateString) {
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
             <div class="flex items-center space-x-2">
-<button onclick="editPass(${row.id})" 
-  class="edit-btn text-blue-600 hover:text-blue-900 transition-colors px-3 py-1 rounded hover:bg-blue-50 hidden">
-  Edit
-</button>
-<button onclick="deletePass(${row.id})" 
-  class="delete-btn text-red-600 hover:text-red-900 transition-colors px-3 py-1 rounded hover:bg-red-50 hidden">
-  Delete
-</button>
+              <button onclick="editPass(${row.id})" 
+                class="edit-btn text-blue-600 hover:text-blue-900 transition-colors px-3 py-1 rounded hover:bg-blue-50">
+                Edit
+              </button>
+              <button onclick="deletePass(${row.id})" 
+                class="delete-btn text-red-600 hover:text-red-900 transition-colors px-3 py-1 rounded hover:bg-red-50">
+                Delete
+              </button>
             </div>
           </td>
         `;
@@ -569,10 +555,33 @@ function formatDate(dateString) {
     // Global functions for onclick handlers
     window.editPass = (id) => {
       const row = allRows.find(r => r.id === id);
-      if (row) openModal(row);
+      if (!row) return;
+
+      const anyMonthActive = months.some(month => row[month] === true);
+      if (anyMonthActive && !isAuthorized) {
+        const input = prompt("Enter password to edit this pass:");
+        if (input !== correctPassword) {
+          alert("Incorrect password. Edit denied.");
+          return;
+        }
+        isAuthorized = true;
+        showActionButtons(); // Just in case we want to reveal buttons post-auth
+      }
+
+      openModal(row);
     };
 
     window.deletePass = async (id) => {
+      if (!isAuthorized) {
+        const input = prompt("Enter password to delete this pass:");
+        if (input !== correctPassword) {
+          alert("Incorrect password. Delete denied.");
+          return;
+        }
+        isAuthorized = true;
+        showActionButtons();
+      }
+
       if (!confirm("Are you sure you want to delete this pass? This action cannot be undone.")) {
         return;
       }
