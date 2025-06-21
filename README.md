@@ -27,4 +27,4 @@ HTML, CSS (or Tailwind), JS	Supabase (Database & Auth)	[Your hosting platform e.
 
 🙌 Authors
 👤 Ashwin Selvaraj
-Tharineesh Duraimani
+👤 Tharineesh Duraimani
