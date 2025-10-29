@@ -12,7 +12,7 @@ Welcome to Theeran Parking, an efficient and modern web-based parking management
 ✅ Inventory Management – Track parking slots (if added)
 
 🛠 Tech Stack
-Frontend	Backend / DB	Hosting
+Frontend	 Backend / DB	Hosting
 HTML, CSS (or Tailwind), JS	Supabase (Database & Auth)	[Your hosting platform e.g. Netlify, Vercel, GitHub Pages]
 
 
