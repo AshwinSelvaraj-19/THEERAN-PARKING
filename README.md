@@ -9,7 +9,7 @@ Welcome to Theeran Parking, an efficient and modern web-based parking management
 ✅ Token Generation – Issue and track tokens for vehicles
 ✅ Real-Time Updates – Supabase integration for dynamic data handling
 ✅ Close Token – Record out time and calculate price
-✅ Inventory Management – Track parking slots (if added)
+
 
 🛠 Tech Stack
 Frontend	 Backend / DB	Hosting
