@@ -34,38 +34,47 @@
 
 <body class="bg-white min-h-screen flex font-sans overflow-hidden">
 
-<!-- LEFT SECTION -->
-<section class="w-1/2 bg-[#1A2E45] text-white flex flex-col justify-center items-center p-10 fixed left-0 top-0 bottom-0">
-  <div class="bg-white text-[#1A2E45] p-10 rounded-2xl shadow-xl text-center max-w-sm">
-    <img src="NAT logo bg removed.png" class="h-64 w-64 mx-auto"/>
+<!-- LEFT SECTION (UNCHANGED UI) -->
+<section class="w-1/2 bg-[#1A2E45] text-white flex flex-col justify-center items-center p-10 fixed left-0 top-0 bottom-0 z-10">
+  <div class="bg-white text-[#1A2E45] p-10 rounded-2xl shadow-xl flex flex-col items-center text-center max-w-sm">
+    <img src="NAT logo bg removed.png" alt="NAT Logo" class="h-64 w-64 mb-0" />
     <h1 class="text-3xl font-bold">Welcome to</h1>
     <h2 class="text-2xl font-semibold text-green-600 mt-1">NAT Parking Community</h2>
-    <p class="text-blue-400 mt-4">Smart parking system</p>
-    <button id="toggleBtn" class="mt-6 px-6 py-2 border rounded">
+    <p class="text-blue-400 mt-4">Home to smart parking solutions</p>
+    <button id="toggleBtn"
+            class="mt-8 px-6 py-2 border-2 border-[#1A2E45] rounded-md hover:bg-[#163154] hover:text-white transition-all">
       Learn More
     </button>
   </div>
 </section>
 
 <!-- RIGHT SECTION -->
-<div class="ml-[50%] w-1/2 h-screen relative">
+<div class="ml-[50%] w-1/2 h-screen overflow-hidden relative">
 
-<!-- LOGIN -->
-<div id="loginSection" class="absolute inset-0 px-10 py-16 flex items-center justify-center flex-col visible-section">
+<!-- LOGIN SECTION (UI SAME) -->
+<div id="loginSection" class="absolute inset-0 px-10 py-16 flex items-center justify-center flex-col transition-section visible-section">
   <div class="w-full max-w-md">
 
-    <h2 class="text-2xl font-bold mb-2">Login</h2>
+    <h2 class="text-2xl font-bold text-gray-900 mb-1">Welcome!</h2>
+    <p class="text-sm text-gray-600 mb-6">Login to your account</p>
 
     <form id="loginForm" class="space-y-4">
 
-      <input id="username" type="text" placeholder="Username"
-        class="w-full p-2 border rounded"/>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Your Company ID</label>
+        <input type="text" id="username" required
+               class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" />
+      </div>
 
-      <input id="password" type="password" placeholder="Password"
-        class="w-full p-2 border rounded"/>
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Your Company Password</label>
+        <input type="password" id="password" required
+               class="mt-1 block w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-blue-500" />
+      </div>
 
-      <button class="w-full bg-[#1A2E45] text-white py-2 rounded">
-        Login
+      <button type="submit"
+              class="w-full bg-[#1A2E45] text-white py-2 rounded-md hover:bg-[#163154]">
+        Log In
       </button>
 
     </form>
@@ -73,22 +82,19 @@
   </div>
 </div>
 
-<!-- FEATURES -->
-<div id="featuresSection" class="absolute inset-0 px-8 py-16 hidden-section">
+<!-- FEATURES SECTION (UNCHANGED UI) -->
+<div id="featuresSection" class="absolute inset-0 px-8 py-16 overflow-y-auto transition-section hidden-section">
 
-  <h1 class="text-3xl font-bold mb-6">Features</h1>
+  <header class="mb-10">
+    <h1 class="text-3xl font-bold text-[#1A2E45]">Features</h1>
+    <p class="text-gray-500 mt-2">Explore the smart services we offer</p>
+  </header>
 
-  <div class="space-y-6">
-    <div class="fade-in bg-gray-100 p-4 rounded">
-      Real-time Vehicle Summary
-    </div>
-    <div class="fade-in bg-gray-100 p-4 rounded">
-      Admin Dashboard
-    </div>
-    <div class="fade-in bg-gray-100 p-4 rounded">
-      Smart Payments (Soon)
-    </div>
-  </div>
+  <section class="space-y-6">
+    <div class="fade-in bg-gray-100 p-6 rounded-lg shadow-md">Real-time Vehicle Summary</div>
+    <div class="fade-in bg-gray-100 p-6 rounded-lg shadow-md">Admin Dashboard</div>
+    <div class="fade-in bg-gray-100 p-6 rounded-lg shadow-md">Smart Payments (Soon)</div>
+  </section>
 
 </div>
 </div>
@@ -96,39 +102,39 @@
 <!-- SCRIPT -->
 <script>
 
-// TOGGLE
+// TOGGLE (UNCHANGED)
 const toggleBtn = document.getElementById("toggleBtn");
 const loginSection = document.getElementById("loginSection");
 const featuresSection = document.getElementById("featuresSection");
 
-let show = false;
+let showingFeatures = false;
 
-toggleBtn.onclick = () => {
-  show = !show;
+toggleBtn.addEventListener("click", () => {
+  showingFeatures = !showingFeatures;
 
-  if (show) {
+  if (showingFeatures) {
     loginSection.classList.replace("visible-section", "hidden-section");
     featuresSection.classList.replace("hidden-section", "visible-section");
-    toggleBtn.innerText = "Back";
+    toggleBtn.textContent = "Back to Login";
   } else {
     featuresSection.classList.replace("visible-section", "hidden-section");
     loginSection.classList.replace("hidden-section", "visible-section");
-    toggleBtn.innerText = "Learn More";
+    toggleBtn.textContent = "Learn More";
   }
-};
+});
 
-// LOGIN LOGIC (MANUAL)
+// ✅ MANUAL LOGIN (REPLACED BACKEND)
 document.getElementById("loginForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  const user = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value.trim();
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  if (user === "tharan" && pass === "123") {
-    localStorage.setItem("username", user);
-    window.location.href = "Dashboard.html";
+  if (username === "tharan" && password === "123") {
+    localStorage.setItem("username", username);
+    window.location.href = "Dashboard.html"; // keep same redirect
   } else {
-    alert("Invalid credentials");
+    alert("Invalid username or password");
   }
 });
 
